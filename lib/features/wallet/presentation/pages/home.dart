@@ -1,3 +1,4 @@
+import 'package:bankwallet/features/wallet/presentation/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../shared/constants/colors.dart';
@@ -26,7 +27,8 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: dotColor, // Change the color of the dot here
           ),
           SizedBox(width: 5),
-          Text('Polygon Mainnet', style: labelTextStyle.copyWith(fontWeight: FontWeight.w500)),
+          Text('Polygon Mainnet',
+              style: labelTextStyle.copyWith(fontWeight: FontWeight.w500)),
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 16),
             child: Icon(Icons.more_vert),
@@ -74,35 +76,21 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   children: [
                     Expanded(
-                      child: Container(
-                        height: 55,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: sendButtonColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(borderRadius),
-                            ),
-                          ),
+                        child: CustomButton(
                           onPressed: () {},
-                          child: Text('Send', style: buttonTextStyle),
-                        ),
-                      ),
+                          backgroundColor: sendButtonColor,
+                          text: 'Send',
+                        )
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
-                      child: Container(
-                        height: 55,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: swapButtonColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(borderRadius),
-                            ),
-                          ),
-                          onPressed: () {},
-                          child: Text('Swap', style: buttonTextStyle),
-                        ),
-                      ),
+                        child: CustomButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, "swap");
+                          },
+                          backgroundColor: swapButtonColor,
+                          text: 'Swap',
+                        )
                     ),
                   ],
                 ),
@@ -143,27 +131,6 @@ class _HomePageState extends State<HomePage> {
                       child: TabBarView(
                         children: [
                           // Your TabBarView children widgets here
-                      Expanded(
-                      child: ListView(
-                      children: [
-                        ListTile(
-                        leading: CircleAvatar(
-                        backgroundColor: tokenColor,
-                        child: Text('P', style: cardTextStyle),
-                      ),
-                      title: Text('Polygon', style: TextStyle(color: tokenTextColor, fontWeight: FontWeight.w600)),
-                      subtitle: Text('MATIC', style: TextStyle(color: tokenSubTextColor)),
-                      trailing: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('0 MATIC', style: TextStyle(color: tokenTextColor, fontWeight: FontWeight.w600, fontSize: 16)),
-                          Text('0.00 USD', style: TextStyle(color: tokenSubTextColor)),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
                           Expanded(
                             child: ListView(
                               children: [
@@ -172,13 +139,52 @@ class _HomePageState extends State<HomePage> {
                                     backgroundColor: tokenColor,
                                     child: Text('P', style: cardTextStyle),
                                   ),
-                                  title: Text('Polygon', style: TextStyle(color: tokenTextColor)),
-                                  subtitle: Text('MATIC', style: TextStyle(color: tokenSubTextColor)),
+                                  title: Text('Polygon',
+                                      style: TextStyle(
+                                          color: tokenTextColor,
+                                          fontWeight: FontWeight.w600)),
+                                  subtitle: Text('MATIC',
+                                      style:
+                                          TextStyle(color: tokenSubTextColor)),
                                   trailing: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text('0 MATIC', style: TextStyle(color: tokenTextColor)),
-                                      Text('0.00 USD', style: TextStyle(color: tokenSubTextColor)),
+                                      Text('0 MATIC',
+                                          style: TextStyle(
+                                              color: tokenTextColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16)),
+                                      Text('0.00 USD',
+                                          style: TextStyle(
+                                              color: tokenSubTextColor)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: ListView(
+                              children: [
+                                ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundColor: tokenColor,
+                                    child: Text('P', style: cardTextStyle),
+                                  ),
+                                  title: Text('Polygon',
+                                      style: TextStyle(color: tokenTextColor)),
+                                  subtitle: Text('MATIC',
+                                      style:
+                                          TextStyle(color: tokenSubTextColor)),
+                                  trailing: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('0 MATIC',
+                                          style:
+                                              TextStyle(color: tokenTextColor)),
+                                      Text('0.00 USD',
+                                          style: TextStyle(
+                                              color: tokenSubTextColor)),
                                     ],
                                   ),
                                 ),

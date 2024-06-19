@@ -1,6 +1,9 @@
 import 'package:bankwallet/features/wallet/presentation/pages/home.dart';
 import 'package:bankwallet/shared/constants/colors.dart';
+import 'package:bankwallet/shared/routes/route_generator.dart';
 import 'package:flutter/material.dart';
+
+import 'features/wallet/presentation/pages/swap.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: mainAppColor,
       ),
-      home: const MyHomePage(),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator().generateRoute,
     );
   }
 }
