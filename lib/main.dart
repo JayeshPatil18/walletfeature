@@ -21,17 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: mainAppColor,
       ),
-      initialRoute: '/',
+      initialRoute: 'create',
       onGenerateRoute: RouteGenerator().generateRoute,
     );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const HomePage();
   }
 }

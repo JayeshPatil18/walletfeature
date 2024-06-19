@@ -1,7 +1,8 @@
+import 'package:bankwallet/features/wallet/presentation/pages/address.dart';
 import 'package:bankwallet/features/wallet/presentation/pages/home.dart';
 import 'package:bankwallet/features/wallet/presentation/pages/swap.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../features/wallet/presentation/pages/create.dart';
 
 class RouteGenerator{
   Route<dynamic> generateRoute(RouteSettings settings){
@@ -13,9 +14,19 @@ class RouteGenerator{
             builder: (_) => const HomePage()
         );
 
+      case 'create':
+        return MaterialPageRoute(
+            builder: (_) => const CreateWallet()
+        );
+
       case 'swap':
         return MaterialPageRoute(
             builder: (_) => const SwapScreen()
+        );
+
+      case 'send_address':
+        return MaterialPageRoute(
+            builder: (_) => const SendAddress()
         );
 
       default:

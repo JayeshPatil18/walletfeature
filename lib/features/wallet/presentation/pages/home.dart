@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../shared/constants/colors.dart';
 import '../../../../shared/constants/textstyle.dart';
 import '../../../../shared/constants/values.dart';
+import '../widgets/bottomsheet.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
         title: Padding(
           padding: const EdgeInsets.only(left: 8),
           child: Text('Wallet', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -77,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Expanded(
                         child: CustomButton(
-                          onPressed: () {},
+                          onPressed: () => BottomSheetWidget().showBottomSheet(context),
                           backgroundColor: sendButtonColor,
                           text: 'Send',
                         )

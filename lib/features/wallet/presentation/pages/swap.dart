@@ -43,6 +43,7 @@ class _SwapScreenState extends State<SwapScreen> {
                       TextField(
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
+                          hintStyle: TextStyle(fontWeight: FontWeight.w400),
                           hintText: 'Enter amount',
                           filled: true,
                           fillColor: Colors.grey.shade200,
@@ -52,33 +53,70 @@ class _SwapScreenState extends State<SwapScreen> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(color: backgroundColor),
+                            borderSide: BorderSide(color: Colors.grey),
                           ),
                           contentPadding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 15),
                         ),
                       ),
-                      SizedBox(height: 8),
-                      Text('Balance: 5', style: TextStyle(color: Colors.grey)),
                     ],
                   ),
                 ),
-                SizedBox(width: 40),
-                DropdownButton<String>(
-                  value: selectedCurrency1,
-                  icon: Icon(Icons.arrow_drop_down),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedCurrency1 = newValue!;
-                    });
-                  },
-                  items: <String>['VIBLE', 'Polygon', 'Uniswap']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
+                SizedBox(width: 60),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        DropdownButton<String>(
+                          value: selectedCurrency1,
+                          icon: Row(
+                            children: [
+                              Icon(Icons.arrow_drop_down), // Dropdown arrow icon
+                            ],
+                          ),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedCurrency1 = newValue!;
+                            });
+                          },
+                          underline: Container(), // Remove default underline
+                          items: <String>['VIBLE', 'Polygon', 'Uniswap']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            IconData? icon;
+                            switch (value) {
+                              case 'VIBLE':
+                                icon = Icons.money;
+                                break;
+                              case 'Polygon':
+                                icon = Icons.polymer;
+                                break;
+                              case 'Uniswap':
+                                icon = Icons.swap_horiz;
+                                break;
+                              default:
+                                icon = null;
+                            }
+
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Row(
+                                children: [
+                                  if (icon != null) Icon(icon), // Show icon if available
+                                  SizedBox(width: 8), // Adjust spacing as needed
+                                  Text(value),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      'Balance: \$100.00', // Replace with your actual balance text
+                      style: TextStyle(fontSize: 12, color: Colors.grey), // Adjust as needed
+                    ),
+                  ],
+                )
               ],
             ),
             SizedBox(height: 16),
@@ -93,6 +131,7 @@ class _SwapScreenState extends State<SwapScreen> {
                       TextField(
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
+                          hintStyle: TextStyle(fontWeight: FontWeight.w400),
                           hintText: 'Enter amount',
                           filled: true,
                           fillColor: Colors.grey.shade200,
@@ -102,7 +141,7 @@ class _SwapScreenState extends State<SwapScreen> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(color: backgroundColor),
+                            borderSide: BorderSide(color: Colors.grey),
                           ),
                           contentPadding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 15),
                         ),
@@ -112,23 +151,58 @@ class _SwapScreenState extends State<SwapScreen> {
                     ],
                   ),
                 ),
-                SizedBox(width: 40),
-                DropdownButton<String>(
-                  value: selectedCurrency2,
-                  icon: Icon(Icons.arrow_drop_down),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedCurrency2 = newValue!;
-                    });
-                  },
-                  items: <String>['VIBLE', 'Polygon', 'Uniswap']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
+                SizedBox(width: 60),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        DropdownButton<String>(
+                          value: selectedCurrency2,
+                          icon: Row(
+                            children: [
+                              Icon(Icons.arrow_drop_down), // Dropdown arrow icon
+                            ],
+                          ),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedCurrency2 = newValue!;
+                            });
+                          },
+                          underline: Container(), // Remove default underline
+                          items: <String>['VIBLE', 'Polygon', 'Uniswap']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            IconData? icon;
+                            switch (value) {
+                              case 'VIBLE':
+                                icon = Icons.money;
+                                break;
+                              case 'Polygon':
+                                icon = Icons.polymer;
+                                break;
+                              case 'Uniswap':
+                                icon = Icons.swap_horiz;
+                                break;
+                              default:
+                                icon = null;
+                            }
+
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Row(
+                                children: [
+                                  if (icon != null) Icon(icon), // Show icon if available
+                                  SizedBox(width: 8), // Adjust spacing as needed
+                                  Text(value),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ],
+                )
               ],
             ),
             SizedBox(height: 10),
