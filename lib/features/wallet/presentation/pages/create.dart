@@ -1,8 +1,10 @@
+import 'package:bankwallet/features/wallet/presentation/widgets/customsnackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../shared/constants/colors.dart';
 import '../../../../shared/constants/textstyle.dart';
+import '../../data/repository/wallet_service.dart';
 import '../widgets/button.dart';
 
 class CreateWallet extends StatefulWidget {
@@ -14,12 +16,42 @@ class CreateWallet extends StatefulWidget {
 
 class _CreateWalletState extends State<CreateWallet> {
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  TextEditingController walletNameController = TextEditingController();
+  TextEditingController pinController = TextEditingController();
+
   bool _passwordVisible = false;
 
   void _toggleVisibility() {
     setState(() {
       _passwordVisible = !_passwordVisible;
     });
+  }
+
+  String? _validateInput(String? input, int index) {
+
+    if (input != null) {
+      input = input.trim();
+
+    }
+
+    switch (index) {
+      case 0:
+        if (input == null || input.isEmpty) {
+          return 'Enter Wallet Name';
+        }
+        break;
+
+      case 1:
+        if (input == null || input.isEmpty) {
+          return 'Enter Pin';
+        }
+        break;
+
+      default:
+        return null;
+    }
   }
 
   @override
@@ -39,29 +71,38 @@ class _CreateWalletState extends State<CreateWallet> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Wallet Name'),
-                SizedBox(height: 8),
-                TextField(
-                  decoration: InputDecoration(
-                    hintStyle: TextStyle(fontWeight: FontWeight.w400),
-                    hintText: 'Eg. Jack\'s Wallet',
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide.none,
+            Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Wallet Name'),
+                  SizedBox(height: 8),
+                  TextFormField(
+                    autovalidateMode:
+                    AutovalidateMode.onUserInteraction,
+                    validator: ((value) {
+                      return _validateInput(value, 0);
+                    }),
+                    controller: walletNameController,
+                    decoration: InputDecoration(
+                      hintStyle: TextStyle(fontWeight: FontWeight.w400),
+                      hintText: 'Eg. Jack\'s Wallet',
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 15),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    contentPadding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 15),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(height: 16),
             Column(
@@ -69,7 +110,13 @@ class _CreateWalletState extends State<CreateWallet> {
               children: [
                 Text('Pincode'),
                 SizedBox(height: 8),
-                TextField(
+                TextFormField(
+                  autovalidateMode:
+                  AutovalidateMode.onUserInteraction,
+                  validator: ((value) {
+                    return _validateInput(value, 1);
+                  }),
+                  controller: pinController,
                   obscureText: !_passwordVisible, // This makes the text obscure (password type)
                   keyboardType: TextInputType.number, // Keyboard type for numbers
                   decoration: InputDecoration(
@@ -102,8 +149,19 @@ class _CreateWalletState extends State<CreateWallet> {
             SizedBox(
               width: double.infinity,
               child: CustomButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/');
+                onPressed: () async{
+                  FocusScope.of(context).unfocus();
+                  bool isValid = _formKey.currentState!.validate();
+
+                  if(isValid){
+                    int result = await createWallet(walletNameController.text.toString(), pinController.text.toString());
+
+                    if(result == 200){
+                      Navigator.pushNamed(context, '/');
+                    } else{
+                      mySnackBarShow(context, 'Something went wrong!');
+                    }
+                  }
                 },
                 backgroundColor: backgroundColor,
                 text: 'Create',
