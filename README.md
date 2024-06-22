@@ -15,7 +15,7 @@ This Flutter application mimics the wallet functionality found in the Vible Wall
 
 ### Screenshot
 
-![Screenshot](https://github.com/JayeshPatil18/wallet-app/blob/master/wallet-app.png)
+![Screenshot](https://github.com/JayeshPatil18/walletfeature/blob/master/wallet-app.png)
 
 ## Links
 
